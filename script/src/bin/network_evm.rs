@@ -73,9 +73,19 @@ fn main() {
     // Get the verification key hash for contracts
     let vk_bytes = vk.bytes32();
     
-    // vk.bytes32() returns hex string, not raw bytes
+    // Debug: check what vk_bytes actually contains
+    println!("🔍 Debug vk_bytes: {:02x?}", vk_bytes);
+    println!("🔍 Debug as string: {:?}", String::from_utf8_lossy(&vk_bytes));
+    
+    // Try to get the correct hash
     let vk_hash = hex::encode(&vk_bytes);
-    println!("🔑 Program VKey: 0x{}", vk_hash);
+    println!("🔑 Program VKey (direct hex): 0x{}", vk_hash);
+    
+    // Also try interpreting as string
+    let vk_string = String::from_utf8_lossy(&vk_bytes);
+    if vk_string.starts_with("0x") && vk_string.len() == 66 {
+        println!("🔑 Program VKey (from string): {}", vk_string);
+    }
 
     // First, test execution locally to ensure everything works
     println!("⚡ Testing local execution...");
