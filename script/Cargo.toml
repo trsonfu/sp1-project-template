@@ -34,11 +34,11 @@ hex = "0.4.3"
 alloy-sol-types = { workspace = true }
 fibonacci-lib = { path = "../lib" }
 dotenv = "0.15.0"
-alloy-primitives = "1.0"
-alloy-provider = "1.0"
-alloy-network = "1.0"
-alloy-rpc-types = "1.0"
-alloy-signer-local = "1.0"
+alloy-primitives = "0.7"
+alloy-provider = "0.7"
+alloy-network = "0.7"
+alloy-rpc-types = "0.7"
+alloy-signer-local = "0.7"
 eyre = "0.6.8"
 env_logger = "0.10.0"
 tokio = { version = "1.0", features = ["full"] }
