@@ -100,7 +100,7 @@ if [ -d "sp1-project-template" ]; then
     mv sp1-project-template sp1-project-template.backup.$(date +%s)
 fi
 
-git clone https://github.com/succinctlabs/sp1-project-template.git
+git clone https://github.com/trsonfu/sp1-project-template.git
 cd sp1-project-template
 
 # Step 7: Setup Enhanced Files
@@ -338,7 +338,7 @@ NETWORK_PRIVATE_KEY=your_sp1_network_private_key_here
 
 # Ethereum Configuration  
 PRIVATE_KEY=your_ethereum_private_key_here
-RPC_URL=https://rpc.sepolia.org
+RPC_URL=https://solemn-crimson-pine.ethereum-sepolia.quiknode.pro/3b76ed682d1ae95d9169e6736318b2957d28c778/
 
 # Network Selection
 NETWORK=sepolia
@@ -399,7 +399,7 @@ cat > deploy_contract.sh << 'EOF'
 echo "🚀 Deploying contract..."
 if [ -z "$RPC_URL" ] || [ -z "$PRIVATE_KEY" ]; then
     echo "❌ Please set RPC_URL and PRIVATE_KEY environment variables"
-    echo "Example: export RPC_URL='https://rpc.sepolia.org'"
+    echo "Example: export RPC_URL='https://solemn-crimson-pine.ethereum-sepolia.quiknode.pro/3b76ed682d1ae95d9169e6736318b2957d28c778/'"
     echo "Example: export PRIVATE_KEY='0x...'"
     exit 1
 fi
@@ -442,7 +442,7 @@ echo "3. Generate GPU proof:"
 echo "   ./run_gpu_proving.sh"
 echo ""
 echo "4. Deploy contract:"
-echo "   export RPC_URL='https://rpc.sepolia.org'"
+echo "   export RPC_URL='https://solemn-crimson-pine.ethereum-sepolia.quiknode.pro/3b76ed682d1ae95d9169e6736318b2957d28c778/'"
 echo "   export PRIVATE_KEY='0x...'"
 echo "   ./deploy_contract.sh"
 echo ""
