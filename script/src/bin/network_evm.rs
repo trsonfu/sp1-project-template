@@ -91,7 +91,7 @@ fn main() {
     let (output, report) = client.execute(FIBONACCI_ELF, &stdin).run().unwrap();
     
     // Read and validate the output
-    let decoded = PublicValuesStruct::abi_decode(output.as_slice()).unwrap();
+    let decoded = PublicValuesStruct::abi_decode(output.as_slice(), true).unwrap();
     println!("✅ Local execution successful:");
     println!("   Input n: {}", decoded.n);
     println!("   Fibonacci({}): {}", decoded.n.saturating_sub(1), decoded.a);
