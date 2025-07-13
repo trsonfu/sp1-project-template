@@ -9,7 +9,7 @@ use fibonacci_lib::PublicValuesStruct;
 use sp1_sdk::{
     include_elf, ProverClient, SP1ProofWithPublicValues, SP1Stdin, HashableKey
 };
-use std::path::Path;
+
 
 /// The ELF (executable and linkable format) file for the Succinct RISC-V zkVM.
 pub const FIBONACCI_ELF: &[u8] = include_elf!("fibonacci-program");
@@ -69,7 +69,7 @@ fn main() {
     
     // Get the verification key hash for contracts
     let vk_hash = vk.bytes32();
-    println!("🔑 Program VKey: 0x{}", hex::encode(vk_hash));
+    println!("🔑 Program VKey: 0x{}", hex::encode(&vk_hash));
 
     // First, test execution locally to ensure everything works
     println!("⚡ Testing local execution...");
@@ -131,7 +131,7 @@ fn main() {
 fn save_proof_artifacts(
     proof: &SP1ProofWithPublicValues,
     args: &Args,
-    vk_hash: &[u8; 32],
+    vk_hash: &String,
 ) -> Result<(), Box<dyn std::error::Error>> {
     use std::fs;
 
@@ -150,7 +150,7 @@ fn save_proof_artifacts(
 
     // Save verification key
     let vkey_path = format!("{}/verification_key.txt", args.output_dir);
-    fs::write(&vkey_path, format!("0x{}", hex::encode(vk_hash)))?;
+    fs::write(&vkey_path, format!("0x{}", vk_hash))?;
     println!("💾 Verification key saved to: {}", vkey_path);
 
     // Save contract call data
@@ -178,11 +178,11 @@ fn save_proof_artifacts(
         args.system.to_uppercase(),
         args.n,
         args.system,
-        hex::encode(vk_hash),
+        vk_hash,
         hex::encode(&proof.public_values.to_vec()),
         hex::encode(&proof.bytes()),
         proof.bytes().len(),
-        hex::encode(vk_hash),
+        vk_hash,
         hex::encode(&proof.public_values.to_vec()),
         hex::encode(&proof.bytes())
     );
