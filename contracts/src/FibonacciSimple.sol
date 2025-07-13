@@ -50,4 +50,10 @@ contract FibonacciSimple {
     function getVerifier() external pure returns (address) {
         return SP1_VERIFIER;
     }
+    
+    /// @notice Test function to decode public values without verification
+    function testDecodePublicValues(bytes calldata publicValues) external pure returns (uint32 n, uint32 a, uint32 b) {
+        PublicValuesStruct memory values = abi.decode(publicValues, (PublicValuesStruct));
+        return (values.n, values.a, values.b);
+    }
 } 
