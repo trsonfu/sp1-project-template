@@ -78,7 +78,7 @@ contract Fibonacci {
     function verifyFibonacciProof(
         bytes calldata _publicValues,
         bytes calldata _proofBytes
-    ) external returns (uint32 n, uint32 fibN1, uint32 fibN) {
+    ) public returns (uint32 n, uint32 fibN1, uint32 fibN) {
         // Verify the SP1 proof
         try ISP1Verifier(verifier).verifyProof(fibonacciProgramVKey, _publicValues, _proofBytes) {
             // Proof is valid, continue
