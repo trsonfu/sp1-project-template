@@ -63,9 +63,8 @@ contract Deploy is Script {
         // Start broadcasting transactions
         vm.startBroadcast();
         
-        // Deploy the Fibonacci contract with salt for different address
-        bytes32 salt = bytes32(uint256(1)); // Change this to get different address
-        Fibonacci fibonacci = new Fibonacci{salt: salt}(verifierAddress, programVKey);
+        // Deploy the Fibonacci contract
+        Fibonacci fibonacci = new Fibonacci(verifierAddress, programVKey);
         
         console.log("SUCCESS: Fibonacci contract deployed at:", address(fibonacci));
         console.log("Contract owner:", fibonacci.owner());
