@@ -39,6 +39,7 @@ alloy-provider = "0.7"
 alloy-network = "0.7"
 alloy-rpc-types = "0.7"
 alloy-signer-local = "0.7"
+alloy-contract = "0.7"
 eyre = "0.6.8"
 env_logger = "0.10.0"
 tokio = { version = "1.0", features = ["full"] }

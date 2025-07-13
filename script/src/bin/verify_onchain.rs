@@ -1,9 +1,6 @@
-use alloy_network::EthereumWallet;
 use alloy_primitives::Address;
 use alloy_provider::{Provider, ProviderBuilder};
-use alloy_rpc_types::TransactionRequest;
-use alloy_signer_local::PrivateKeySigner;
-use alloy_sol_types::{sol, SolValue};
+use alloy_sol_types::sol;
 use eyre::Result;
 use serde_json::Value;
 use std::env;
