@@ -68,8 +68,8 @@ fn main() {
     let (pk, vk) = client.setup(FIBONACCI_ELF);
     
     // Get the verification key hash for contracts
-    let vk_hash = vk.bytes32();
-    println!("🔑 Program VKey: 0x{}", hex::encode(&vk_hash));
+    let vk_hash = hex::encode(vk.bytes32());
+    println!("🔑 Program VKey: 0x{}", vk_hash);
 
     // First, test execution locally to ensure everything works
     println!("⚡ Testing local execution...");
@@ -112,7 +112,7 @@ fn main() {
     println!("📋 Summary:");
     println!("   Input: {}", args.n);
     println!("   System: {}", args.system);
-    println!("   VKey: 0x{}", hex::encode(vk_hash));
+    println!("   VKey: 0x{}", vk_hash);
     println!("   Public Values: 0x{}", hex::encode(&proof.public_values.to_vec()));
     println!("   Proof Size: {} bytes", proof.bytes().len());
     
@@ -122,7 +122,7 @@ fn main() {
 
     println!();
     println!("🔗 Next steps for on-chain verification:");
-    println!("1. Set FIBONACCI_PROGRAM_VKEY=0x{} in your .env", hex::encode(vk_hash));
+    println!("1. Set FIBONACCI_PROGRAM_VKEY=0x{} in your .env", vk_hash);
     println!("2. Deploy contract: cd ../contracts && forge script script/Deploy.s.sol --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast");
     println!("3. Call verifyFibonacciProof with the generated proof and public values");
 }
