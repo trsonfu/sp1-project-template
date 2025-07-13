@@ -2,6 +2,15 @@
 src = "src"
 out = "out"
 libs = ["lib"]
-fs_permissions = [{ access = "read-write", path = "./" }]
+remappings = [
+    "@sp1-contracts/=./lib/sp1-contracts/contracts/src/",
+    "@forge-std/=./lib/forge-std/src/"
+]
 
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+[rpc_endpoints]
+sepolia = "https://sepolia.dev"
+mainnet = "https://eth-mainnet.g.alchemy.com/v2/demo"
+
+[etherscan]
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
+mainnet = { key = "${ETHERSCAN_API_KEY}" }

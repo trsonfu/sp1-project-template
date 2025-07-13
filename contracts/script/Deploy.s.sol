@@ -66,7 +66,7 @@ contract Deploy is Script {
         // Deploy the Fibonacci contract
         Fibonacci fibonacci = new Fibonacci(verifierAddress, programVKey);
         
-        console.log("✅ Fibonacci contract deployed at:", address(fibonacci));
+        console.log("SUCCESS: Fibonacci contract deployed at:", address(fibonacci));
         console.log("Contract owner:", fibonacci.owner());
         console.log("Verifier address:", fibonacci.verifier());
         console.log("Program VKey:", vm.toString(fibonacci.fibonacciProgramVKey()));
@@ -74,7 +74,7 @@ contract Deploy is Script {
         vm.stopBroadcast();
         
         // Log deployment information
-        console.log("\n🎉 Deployment completed!");
+        console.log("\nDeployment completed successfully!");
         console.log("Network:", network);
         console.log("Contract:", address(fibonacci));
         console.log("Block:", block.number);
@@ -89,7 +89,7 @@ contract Deploy is Script {
         );
         
         vm.writeFile("deployment.env", deploymentInfo);
-        console.log("📝 Deployment info saved to deployment.env");
+        console.log("INFO: Deployment info saved to deployment.env");
         
         console.log("\nNext steps:");
         console.log("1. Verify contract on Etherscan:");
