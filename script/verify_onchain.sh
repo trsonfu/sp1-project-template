@@ -5,7 +5,7 @@ echo "=================================="
 
 # Set default values
 CONTRACT_ADDRESS="${FIBONACCI_CONTRACT_ADDRESS:-0x44a4c90114d64A027DB4630639153DC54eaA6224}"
-RPC_URL="${RPC_URL:-https://rpc.sepolia.succinct.xyz}"
+RPC_URL="${RPC_URL:-https://solemn-crimson-pine.ethereum-sepolia.quiknode.pro/3b76ed682d1ae95d9169e6736318b2957d28c778/}"
 
 echo "📝 Contract Address: $CONTRACT_ADDRESS"
 echo "🌐 RPC URL: $RPC_URL"
