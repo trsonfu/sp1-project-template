@@ -87,3 +87,11 @@ command:
 ```sh
 SP1_PROVER=network NETWORK_PRIVATE_KEY=... cargo run --release --bin evm
 ```
+
+## Documentation
+
+- [ON_CHAIN_SETUP.md](ON_CHAIN_SETUP.md) - Complete setup guide for on-chain verification
+- [ENV_GUIDE.md](ENV_GUIDE.md) - Environment variables guide (required vs optional)
+- [FAQ.md](FAQ.md) - Frequently asked questions and troubleshooting
+- [RPC_GUIDE.md](RPC_GUIDE.md) - Succinct RPC configuration guide
+- [SETUP_SUMMARY.md](SETUP_SUMMARY.md) - Quick reference for all enhancements

@@ -41,7 +41,7 @@ PROGRAM_VKEY=0x00620892344c310c32a74bf0807a5c043964264e4f37c96a10ad12b5c9214e0e
 Fill out the rest of the details needed for deployment:
 
 ```sh
-RPC_URL=...
+RPC_URL=https://rpc.sepolia.succinct.xyz  # Succinct's RPC (recommended)
 ```
 
 ```sh
