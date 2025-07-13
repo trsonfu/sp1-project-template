@@ -9,6 +9,7 @@ use fibonacci_lib::PublicValuesStruct;
 use sp1_sdk::{
     include_elf, ProverClient, SP1ProofWithPublicValues, SP1Stdin, HashableKey
 };
+use std::any;
 
 
 /// The ELF (executable and linkable format) file for the Succinct RISC-V zkVM.
@@ -43,11 +44,13 @@ fn main() {
     // Parse the command line arguments.
     let args = Args::parse();
 
+    let prover_mode = std::env::var("SP1_PROVER").unwrap_or_else(|_| "local".to_string());
+    
     println!("🚀 SP1 Network EVM Proof Generation");
     println!("===================================");
     println!("📊 Input: n = {}", args.n);
     println!("🔧 System: {}", args.system);
-    println!("🌐 Using Succinct Prover Network");
+    println!("🌐 Prover Mode: {}", prover_mode);
     println!();
 
     // Validate system argument
@@ -68,7 +71,10 @@ fn main() {
     let (pk, vk) = client.setup(FIBONACCI_ELF);
     
     // Get the verification key hash for contracts
-    let vk_hash = hex::encode(vk.bytes32());
+    let vk_bytes = vk.bytes32();
+    
+    // vk.bytes32() returns hex string, not raw bytes
+    let vk_hash = hex::encode(&vk_bytes);
     println!("🔑 Program VKey: 0x{}", vk_hash);
 
     // First, test execution locally to ensure everything works
@@ -84,9 +90,24 @@ fn main() {
     println!("   Cycles: {}", report.total_instruction_count());
     println!();
 
-    // Generate the EVM-compatible proof using the network
-    println!("🌐 Generating {} proof using Succinct Prover Network...", args.system.to_uppercase());
-    println!("⏳ This may take several minutes depending on network load...");
+    // Generate the EVM-compatible proof
+    match prover_mode.as_str() {
+        "network" => {
+            println!("🌐 Generating {} proof using Succinct Prover Network...", args.system.to_uppercase());
+            println!("⏳ This may take several minutes depending on network load...");
+        },
+        "cpu" => {
+            println!("💻 Generating {} proof using CPU...", args.system.to_uppercase());
+            println!("⚠️  WARNING: CPU proving can take HOURS for Groth16! Consider using 'mock' for testing.");
+        },
+        "mock" => {
+            println!("🎭 Generating {} mock proof...", args.system.to_uppercase());
+            println!("⚡ Mock proving is fast but proofs are not secure!");
+        },
+        _ => {
+            println!("🔧 Generating {} proof using {}...", args.system.to_uppercase(), prover_mode);
+        }
+    }
     
     let proof = if args.system == "groth16" {
         client.prove(&pk, &stdin).groth16().run()
@@ -94,7 +115,10 @@ fn main() {
         client.prove(&pk, &stdin).plonk().run()
     }.expect("failed to generate proof");
 
-    println!("✅ {} proof generated successfully!", args.system.to_uppercase());
+    match prover_mode.as_str() {
+        "mock" => println!("✅ {} mock proof generated successfully!", args.system.to_uppercase()),
+        _ => println!("✅ {} proof generated successfully!", args.system.to_uppercase()),
+    }
 
     // Verify the proof locally
     println!("🔍 Verifying proof...");
