@@ -9,7 +9,7 @@ use fibonacci_lib::PublicValuesStruct;
 use sp1_sdk::{
     include_elf, ProverClient, SP1ProofWithPublicValues, SP1Stdin, HashableKey
 };
-use std::any;
+
 
 
 /// The ELF (executable and linkable format) file for the Succinct RISC-V zkVM.
@@ -73,19 +73,18 @@ fn main() {
     // Get the verification key hash for contracts
     let vk_bytes = vk.bytes32();
     
-    // Debug: check what vk_bytes actually contains
-    println!("🔍 Debug vk_bytes: {:02x?}", vk_bytes);
-    println!("🔍 Debug as string: {:?}", String::from_utf8_lossy(&vk_bytes));
+    // vk.bytes32() actually returns a String already!
+    println!("🔍 Debug vk_bytes: {:?}", vk_bytes);
+    println!("🔍 vk_bytes type: String");
     
-    // Try to get the correct hash
-    let vk_hash = hex::encode(&vk_bytes);
-    println!("🔑 Program VKey (direct hex): 0x{}", vk_hash);
+    // Since vk_bytes is already a hex string, use it directly
+    let vk_hash = if vk_bytes.starts_with("0x") {
+        vk_bytes[2..].to_string()  // Remove "0x" prefix if present
+    } else {
+        vk_bytes.clone()
+    };
     
-    // Also try interpreting as string
-    let vk_string = String::from_utf8_lossy(&vk_bytes);
-    if vk_string.starts_with("0x") && vk_string.len() == 66 {
-        println!("🔑 Program VKey (from string): {}", vk_string);
-    }
+    println!("🔑 Program VKey: 0x{}", vk_hash);
 
     // First, test execution locally to ensure everything works
     println!("⚡ Testing local execution...");
@@ -165,7 +164,7 @@ fn main() {
 fn save_proof_artifacts(
     proof: &SP1ProofWithPublicValues,
     args: &Args,
-    vk_hash: &String,
+    vk_hash: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     use std::fs;
 
